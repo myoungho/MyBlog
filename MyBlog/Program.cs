@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.Interfaces;
+using MyBlog.Infrastructure.Data;
+using MyBlog.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("MyBlogDb"));
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 var app = builder.Build();
 
